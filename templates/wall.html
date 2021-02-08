@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wall One</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <a href="/logout">logout</a>
+            <div class="jumbotron">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h1>CodingDojo Wall</h1>
+                <h3>Welcome, {{session['firstn']}}!</h3>
+                <hr>
+                <div class="card-group">
+                    <div class="card" style="width: 400px;">
+                        <div class="card-body text-center">
+                            <h1>Message(s) for You</h1>
+                            <table class="table">
+                                {% for one_m in messages %}
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-lg-9">
+                                                <input type="text" class="form-control mb-2" value="Message from: {{one_m['first_name']}} {{one_m['last_name']}}" readonly>
+                                                <input type="hidden" name="message_id" id="message_id" value="{{one_m['message_id']}}">
+                                                <h6>{{one_m['text']}}</h6>
+                                            </div>
+                                            <a href="/delete/{{one_m['message_id']}}">delete</a>
+                                        </div>
+                                    </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 400px;">
+                        <div class="card-body text-center">
+                            <h1>Send Messages</h1>
+                            <table class="table">
+                                {% for one_user in all_users %}
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-lg-9">
+                                                <form action='/send' method='post'>
+                                                    <input type="text" class="form-control mb-2" value="{{one_user['first_name']}} {{one_user['last_name']}}" readonly>
+                                                    <input type="hidden" name="recipient_id" id="recipient_id" value="{{one_user['id']}}">
+                                                    <textarea class="form-control" rows="3" id="message" name="message"></textarea>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <button type="submit" class="btn btn-danger" value="Submit">Send</button>
+                                                </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

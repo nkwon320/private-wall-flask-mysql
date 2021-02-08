@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title>Login & Registration</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <a href="/logout">logout</a>
+            <div class=jumbotron></div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <div class="card-group">
+                    <div class="card" style="width:600px;">
+                        <div class="card-body text-center">
+                            <h1>Create a New Account:</h1>
+                            <h3>New Users - Create a New Account:</h3>
+                            <form action="/createUser" method="POST">
+                                <label for="fname">First Name: </label>
+                                <input type="text" class="form-control" id="fname" name="first_name">
+                                <label for="lname">Last Name: </label>
+                                <input type="text" class="form-control" id="lname" name="last_name">
+                                <label for="emailc">Email: </label>
+                                <input type="text" class="form-control" id="email" name="email">
+                                <label for="pword">Password: </label>
+                                <input type="password" class="form-control" id="pword" name="pword">
+                                <label for="pword2"> Confirm Password: </label>
+                                <input type="password" class="form-control" id="pword2" name="pword2">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="Submit" class="btn btn-danger" value="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card" style="width:300px;">
+                        <div class="card-body text-center">
+                            <h1>Welcome!</h1>
+                            <h3>Returning Users - Log In:</h3>
+                            <form action="/login" method='post'>
+                                <label for="email">Email: </label>
+                                <input type="text" class="form-control" id="email" name="email">
+                                <label for="pword">Password:</label>
+                                <input type="password" class="form-control" id="pword" name="pword">
+                                <button type="submit" class="btn btn-danger" value="Submit">Login</button>
+                            </form>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
